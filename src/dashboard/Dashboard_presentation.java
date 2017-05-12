@@ -77,8 +77,8 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         cartridgeLabel = new javax.swing.JLabel();
         Tests = new javax.swing.JPanel();
         testLabel = new javax.swing.JLabel();
-        patientPanel = new javax.swing.JPanel();
-        patientLabel = new javax.swing.JLabel();
+        ErrorPanel = new javax.swing.JPanel();
+        errorLabel = new javax.swing.JLabel();
         lowerPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -86,7 +86,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.GridLayout(2, 0));
 
         topPanel.setBackground(new java.awt.Color(255, 255, 102));
-        topPanel.setLayout(new java.awt.GridLayout());
+        topPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         instrumentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -172,29 +172,29 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         topPanel.add(Tests);
 
-        patientPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ErrorPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        patientLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        patientLabel.setText("Patients");
+        errorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        errorLabel.setText("Errors");
 
-        javax.swing.GroupLayout patientPanelLayout = new javax.swing.GroupLayout(patientPanel);
-        patientPanel.setLayout(patientPanelLayout);
-        patientPanelLayout.setHorizontalGroup(
-            patientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(patientPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout ErrorPanelLayout = new javax.swing.GroupLayout(ErrorPanel);
+        ErrorPanel.setLayout(ErrorPanelLayout);
+        ErrorPanelLayout.setHorizontalGroup(
+            ErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ErrorPanelLayout.createSequentialGroup()
                 .addGap(120, 120, 120)
-                .addComponent(patientLabel)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addComponent(errorLabel)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
-        patientPanelLayout.setVerticalGroup(
-            patientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(patientPanelLayout.createSequentialGroup()
+        ErrorPanelLayout.setVerticalGroup(
+            ErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ErrorPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(patientLabel)
+                .addComponent(errorLabel)
                 .addContainerGap(298, Short.MAX_VALUE))
         );
 
-        topPanel.add(patientPanel);
+        topPanel.add(ErrorPanel);
 
         getContentPane().add(topPanel);
 
@@ -253,16 +253,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ErrorPanel;
     private javax.swing.JPanel Tests;
     private javax.swing.JLabel cartridgeLabel;
     private javax.swing.JPanel cartridgePanel;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel instrumentLabel;
     private javax.swing.JPanel instrumentPanel;
     private javax.swing.JTextArea instrumentTextArea;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel lowerPanel;
-    private javax.swing.JLabel patientLabel;
-    private javax.swing.JPanel patientPanel;
     private javax.swing.JLabel testLabel;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
