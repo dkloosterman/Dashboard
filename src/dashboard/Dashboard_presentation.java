@@ -5,6 +5,12 @@
  */
 package dashboard;
 
+import Cartridge_pkg.Cartridge;
+import Instrument_pkg.Instrument;
+import JDBCqueries_pkg.JDBCqueries;
+import TestInstance_pkg.TestInstance;
+import java.util.ArrayList;
+
 /**
  *
  * @author Owner
@@ -16,6 +22,41 @@ public class Dashboard_presentation extends javax.swing.JFrame {
      */
     public Dashboard_presentation() {
         initComponents();
+
+        try {
+            this.updateInstrumentPanel();
+
+        } catch (Exception e) {
+            // handle the error
+            System.out.println("\n" + "Dashboard_presentation General Exception " + e.getMessage());
+            System.exit(0);
+        } finally {
+            //finally block used to close resources
+
+        }   //end finally
+    }
+
+    private void updateInstrumentPanel() {
+
+        try {
+            JDBCqueries queries = new JDBCqueries();
+            ArrayList<String> arrayList;
+
+            arrayList = queries.getAllInstrumentIDs();
+
+            for (String ID : arrayList) {
+                this.instrumentTextArea.setText(this.instrumentTextArea.getText() + ID + "\n");
+            }
+            
+        } catch (Exception e) {
+            // handle the error
+            System.out.println("\n" + "updateInstrumentPanel General Exception " + e.getMessage());
+            System.exit(0);
+        } finally {
+            //finally block used to close resources
+
+        }   //end finally
+
     }
 
     /**
@@ -28,10 +69,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private void initComponents() {
 
         topPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        instrumentPanel = new javax.swing.JPanel();
+        instrumentLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        instrumentTextArea = new javax.swing.JTextArea();
+        cartridgePanel = new javax.swing.JPanel();
+        cartridgeLabel = new javax.swing.JLabel();
+        Tests = new javax.swing.JPanel();
+        testLabel = new javax.swing.JLabel();
+        patientPanel = new javax.swing.JPanel();
+        patientLabel = new javax.swing.JLabel();
         lowerPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,66 +88,113 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         topPanel.setBackground(new java.awt.Color(255, 255, 102));
         topPanel.setLayout(new java.awt.GridLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        instrumentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+        instrumentLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        instrumentLabel.setText("Instrument");
+
+        instrumentTextArea.setColumns(20);
+        instrumentTextArea.setRows(5);
+        jScrollPane1.setViewportView(instrumentTextArea);
+
+        javax.swing.GroupLayout instrumentPanelLayout = new javax.swing.GroupLayout(instrumentPanel);
+        instrumentPanel.setLayout(instrumentPanelLayout);
+        instrumentPanelLayout.setHorizontalGroup(
+            instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(instrumentPanelLayout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addGroup(instrumentPanelLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(instrumentLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
-        );
-
-        topPanel.add(jPanel2);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
-        );
-
-        topPanel.add(jPanel5);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+        instrumentPanelLayout.setVerticalGroup(
+            instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(instrumentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(instrumentLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        topPanel.add(jPanel3);
+        instrumentLabel.getAccessibleContext().setAccessibleName("Instruments");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        topPanel.add(instrumentPanel);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+        cartridgePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        cartridgeLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cartridgeLabel.setText("Cartridges");
+
+        javax.swing.GroupLayout cartridgePanelLayout = new javax.swing.GroupLayout(cartridgePanel);
+        cartridgePanel.setLayout(cartridgePanelLayout);
+        cartridgePanelLayout.setHorizontalGroup(
+            cartridgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cartridgePanelLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(cartridgeLabel)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+        cartridgePanelLayout.setVerticalGroup(
+            cartridgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cartridgePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cartridgeLabel)
+                .addContainerGap(298, Short.MAX_VALUE))
         );
 
-        topPanel.add(jPanel4);
+        topPanel.add(cartridgePanel);
+
+        Tests.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        testLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        testLabel.setText("Tests");
+
+        javax.swing.GroupLayout TestsLayout = new javax.swing.GroupLayout(Tests);
+        Tests.setLayout(TestsLayout);
+        TestsLayout.setHorizontalGroup(
+            TestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TestsLayout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(testLabel)
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
+        TestsLayout.setVerticalGroup(
+            TestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TestsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(testLabel)
+                .addContainerGap(298, Short.MAX_VALUE))
+        );
+
+        topPanel.add(Tests);
+
+        patientPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        patientLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        patientLabel.setText("Patients");
+
+        javax.swing.GroupLayout patientPanelLayout = new javax.swing.GroupLayout(patientPanel);
+        patientPanel.setLayout(patientPanelLayout);
+        patientPanelLayout.setHorizontalGroup(
+            patientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(patientPanelLayout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(patientLabel)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+        patientPanelLayout.setVerticalGroup(
+            patientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(patientPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(patientLabel)
+                .addContainerGap(298, Short.MAX_VALUE))
+        );
+
+        topPanel.add(patientPanel);
 
         getContentPane().add(topPanel);
 
@@ -115,7 +209,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         );
         lowerPanelLayout.setVerticalGroup(
             lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGap(0, 326, Short.MAX_VALUE)
         );
 
         getContentPane().add(lowerPanel);
@@ -159,11 +253,17 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel Tests;
+    private javax.swing.JLabel cartridgeLabel;
+    private javax.swing.JPanel cartridgePanel;
+    private javax.swing.JLabel instrumentLabel;
+    private javax.swing.JPanel instrumentPanel;
+    private javax.swing.JTextArea instrumentTextArea;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel lowerPanel;
+    private javax.swing.JLabel patientLabel;
+    private javax.swing.JPanel patientPanel;
+    private javax.swing.JLabel testLabel;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 }
