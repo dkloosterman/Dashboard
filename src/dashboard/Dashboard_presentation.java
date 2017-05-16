@@ -25,6 +25,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         try {
             this.updateInstrumentPanel();
+            this.updateCartridgePanel();
+            this.updateTestsPanel();
+            this.updateErrorsPanel();
 
         } catch (Exception e) {
             // handle the error
@@ -42,15 +45,101 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             JDBCqueries queries = new JDBCqueries();
             ArrayList<String> arrayList;
 
+            arrayList = new ArrayList<String>();
             arrayList = queries.getAllInstrumentIDs();
 
+            instrumentTextArea.setText(instrumentTextArea.getText()
+                    + "Total Instruments: " + arrayList.size() + "\n");
+
             for (String ID : arrayList) {
-                this.instrumentTextArea.setText(this.instrumentTextArea.getText() + ID + "\n");
+                instrumentTextArea.setText(instrumentTextArea.getText() + "\t" + ID + "\n");
             }
-            
+
         } catch (Exception e) {
             // handle the error
             System.out.println("\n" + "updateInstrumentPanel General Exception " + e.getMessage());
+            System.exit(0);
+        } finally {
+            //finally block used to close resources
+
+        }   //end finally
+
+    }
+
+    private void updateCartridgePanel() {
+
+        try {
+            JDBCqueries queries = new JDBCqueries();
+            ArrayList<String> arrayList;
+
+            arrayList = new ArrayList<String>();
+            arrayList = queries.getAllCartridgeIDs();
+
+            cartridgeTextArea.setText(cartridgeTextArea.getText()
+                    + "Total Cartridges: " + arrayList.size() + "\n");
+
+            for (String ID : arrayList) {
+                cartridgeTextArea.setText(cartridgeTextArea.getText() + "\t" + ID + "\n");
+            }
+
+        } catch (Exception e) {
+            // handle the error
+            System.out.println("\n" + "updateCartridgePanel General Exception " + e.getMessage());
+            System.exit(0);
+        } finally {
+            //finally block used to close resources
+
+        }   //end finally
+
+    }
+
+    private void updateTestsPanel() {
+
+        try {
+
+            JDBCqueries queries = new JDBCqueries();
+            ArrayList<String> arrayList;
+
+            arrayList = new ArrayList<String>();
+            arrayList = queries.getAllTestInstanceIDs();
+
+            testsTextArea.setText(testsTextArea.getText()
+                    + "Total SensoDx Tests: " + arrayList.size() + "\n");
+
+            for (String ID : arrayList) {
+                testsTextArea.setText(testsTextArea.getText() + "\t" + ID + "\n");
+            }
+
+        } catch (Exception e) {
+            // handle the error
+            System.out.println("\n" + "updateTestsPanel General Exception " + e.getMessage());
+            System.exit(0);
+        } finally {
+            //finally block used to close resources
+
+        }   //end finally
+
+    }
+
+    private void updateErrorsPanel() {
+
+        try {
+            JDBCqueries queries = new JDBCqueries();
+            ArrayList<String> arrayList;
+
+            arrayList = new ArrayList<String>();
+            arrayList = queries.getAllErrorIDs();
+
+            errorsTextArea.setText(errorsTextArea.getText()
+                    + "Total SensoDx Errors: " + arrayList.size() + "\n");
+
+            for (String ID : arrayList) {
+                errorsTextArea.setText(errorsTextArea.getText() + "\t" + ID + "\n");
+            }
+
+        } catch (Exception e) {
+            // handle the error
+            System.out.println("\n" + "updateErrorsPanel General Exception " + e.getMessage());
             System.exit(0);
         } finally {
             //finally block used to close resources
@@ -75,10 +164,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         instrumentTextArea = new javax.swing.JTextArea();
         cartridgePanel = new javax.swing.JPanel();
         cartridgeLabel = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        cartridgeTextArea = new javax.swing.JTextArea();
         Tests = new javax.swing.JPanel();
         testLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        testsTextArea = new javax.swing.JTextArea();
         ErrorPanel = new javax.swing.JPanel();
         errorLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        errorsTextArea = new javax.swing.JTextArea();
         lowerPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,22 +197,23 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         instrumentPanelLayout.setHorizontalGroup(
             instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(instrumentPanelLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(instrumentPanelLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(instrumentLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(instrumentPanelLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(instrumentLabel))
+                    .addGroup(instrumentPanelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         instrumentPanelLayout.setVerticalGroup(
             instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(instrumentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(instrumentLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         instrumentLabel.getAccessibleContext().setAccessibleName("Instruments");
@@ -129,6 +225,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         cartridgeLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cartridgeLabel.setText("Cartridges");
 
+        cartridgeTextArea.setColumns(20);
+        cartridgeTextArea.setRows(5);
+        jScrollPane4.setViewportView(cartridgeTextArea);
+
         javax.swing.GroupLayout cartridgePanelLayout = new javax.swing.GroupLayout(cartridgePanel);
         cartridgePanel.setLayout(cartridgePanelLayout);
         cartridgePanelLayout.setHorizontalGroup(
@@ -137,13 +237,19 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 .addGap(78, 78, 78)
                 .addComponent(cartridgeLabel)
                 .addContainerGap(80, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartridgePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         cartridgePanelLayout.setVerticalGroup(
             cartridgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cartridgePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cartridgeLabel)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         topPanel.add(cartridgePanel);
@@ -153,6 +259,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         testLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         testLabel.setText("Tests");
 
+        testsTextArea.setColumns(20);
+        testsTextArea.setRows(5);
+        jScrollPane2.setViewportView(testsTextArea);
+
         javax.swing.GroupLayout TestsLayout = new javax.swing.GroupLayout(Tests);
         Tests.setLayout(TestsLayout);
         TestsLayout.setHorizontalGroup(
@@ -161,13 +271,19 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 .addGap(120, 120, 120)
                 .addComponent(testLabel)
                 .addContainerGap(73, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TestsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         TestsLayout.setVerticalGroup(
             TestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TestsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(testLabel)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         topPanel.add(Tests);
@@ -177,6 +293,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         errorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         errorLabel.setText("Errors");
 
+        errorsTextArea.setColumns(20);
+        errorsTextArea.setRows(5);
+        jScrollPane3.setViewportView(errorsTextArea);
+
         javax.swing.GroupLayout ErrorPanelLayout = new javax.swing.GroupLayout(ErrorPanel);
         ErrorPanel.setLayout(ErrorPanelLayout);
         ErrorPanelLayout.setHorizontalGroup(
@@ -184,14 +304,20 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             .addGroup(ErrorPanelLayout.createSequentialGroup()
                 .addGap(120, 120, 120)
                 .addComponent(errorLabel)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         ErrorPanelLayout.setVerticalGroup(
             ErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ErrorPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(errorLabel)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         topPanel.add(ErrorPanel);
@@ -257,13 +383,19 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private javax.swing.JPanel Tests;
     private javax.swing.JLabel cartridgeLabel;
     private javax.swing.JPanel cartridgePanel;
+    private javax.swing.JTextArea cartridgeTextArea;
     private javax.swing.JLabel errorLabel;
+    private javax.swing.JTextArea errorsTextArea;
     private javax.swing.JLabel instrumentLabel;
     private javax.swing.JPanel instrumentPanel;
     private javax.swing.JTextArea instrumentTextArea;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel lowerPanel;
     private javax.swing.JLabel testLabel;
+    private javax.swing.JTextArea testsTextArea;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 }
