@@ -10,6 +10,7 @@ import Instrument_pkg.Instrument;
 import JDBCqueries_pkg.JDBCqueries;
 import TestInstance_pkg.TestInstance;
 import java.util.ArrayList;
+import java.util.concurrent.*;
 
 /**
  *
@@ -28,6 +29,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             this.updateCartridgePanel();
             this.updateTestsPanel();
             this.updateErrorsPanel();
+
+            ScheduledExecutorService execService
+                    = Executors.newScheduledThreadPool(1);
+
+            execService.scheduleAtFixedRate(() -> {
+
+                //The repetitive task... 
+                this.updateLowerTextArea();
+
+            }, 0, 3000L, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             // handle the error
@@ -63,6 +74,14 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             //finally block used to close resources
 
         }   //end finally
+
+    }
+
+    static int loop = 0;
+    private void updateLowerTextArea() {
+        loop++;
+
+        lowerTextArea.setText(loop + " at: " + new java.util.Date());
 
     }
 
@@ -175,6 +194,8 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         errorsTextArea = new javax.swing.JTextArea();
         lowerPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        lowerTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SensoDx Dashboard");
@@ -327,15 +348,25 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         lowerPanel.setBackground(new java.awt.Color(204, 204, 255));
         lowerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lowerTextArea.setColumns(20);
+        lowerTextArea.setRows(5);
+        jScrollPane5.setViewportView(lowerTextArea);
+
         javax.swing.GroupLayout lowerPanelLayout = new javax.swing.GroupLayout(lowerPanel);
         lowerPanel.setLayout(lowerPanelLayout);
         lowerPanelLayout.setHorizontalGroup(
             lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 927, Short.MAX_VALUE)
+            .addGroup(lowerPanelLayout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         lowerPanelLayout.setVerticalGroup(
             lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 326, Short.MAX_VALUE)
+            .addGroup(lowerPanelLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         getContentPane().add(lowerPanel);
@@ -357,16 +388,24 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard_presentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard_presentation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard_presentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard_presentation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard_presentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard_presentation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard_presentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Dashboard_presentation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -393,7 +432,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel lowerPanel;
+    private javax.swing.JTextArea lowerTextArea;
     private javax.swing.JLabel testLabel;
     private javax.swing.JTextArea testsTextArea;
     private javax.swing.JPanel topPanel;
