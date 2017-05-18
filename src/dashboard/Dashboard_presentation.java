@@ -70,16 +70,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         switch (selection) {
             case 0:
-                lowerTextArea.setText(loop + " 0: " + new java.util.Date());
+                lowerLeftTextArea.setText(loop + " 0: " + new java.util.Date());
                 break;
             case 1:
-                lowerTextArea.setText(loop + " 1: " + new java.util.Date());
+                lowerLeftTextArea.setText(loop + " 1: " + new java.util.Date());
                 break;
             case 2:
-                lowerTextArea.setText(loop + " 2: " + new java.util.Date());
+                lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
                 break;
             case 3:
-                lowerTextArea.setText(loop + " 3: " + new java.util.Date());
+                lowerLeftTextArea.setText(loop + " 3: " + new java.util.Date());
                 break;
         }
 
@@ -218,8 +218,12 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         errorsTextArea = new javax.swing.JTextArea();
         lowerPanel = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        lowerTextArea = new javax.swing.JTextArea();
+        lowerLeftPanel = new javax.swing.JPanel();
+        lowerLeftScrollPanel = new javax.swing.JScrollPane();
+        lowerLeftTextArea = new javax.swing.JTextArea();
+        lowerRightPanel = new javax.swing.JPanel();
+        lowerRightScrollPanel = new javax.swing.JScrollPane();
+        lowerRightTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SensoDx Dashboard");
@@ -228,6 +232,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         topPanel.setBackground(new java.awt.Color(255, 255, 102));
         topPanel.setLayout(new java.awt.GridLayout(1, 0));
 
+        instrumentPanel.setBackground(new java.awt.Color(204, 204, 255));
         instrumentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         instrumentLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -249,7 +254,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                     .addGroup(instrumentPanelLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         instrumentPanelLayout.setVerticalGroup(
             instrumentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,6 +270,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         topPanel.add(instrumentPanel);
 
+        cartridgePanel.setBackground(new java.awt.Color(204, 204, 255));
         cartridgePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         cartridgeLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -281,7 +287,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             .addGroup(cartridgePanelLayout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(cartridgeLabel)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartridgePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,6 +305,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         topPanel.add(cartridgePanel);
 
+        Tests.setBackground(new java.awt.Color(204, 204, 255));
         Tests.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         testLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -315,7 +322,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             .addGroup(TestsLayout.createSequentialGroup()
                 .addGap(120, 120, 120)
                 .addComponent(testLabel)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TestsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,6 +340,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         topPanel.add(Tests);
 
+        ErrorPanel.setBackground(new java.awt.Color(204, 204, 255));
         ErrorPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         errorLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -351,7 +359,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 .addComponent(errorLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -371,27 +379,65 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         lowerPanel.setBackground(new java.awt.Color(204, 204, 255));
         lowerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lowerPanel.setLayout(new java.awt.GridLayout(1, 2));
 
-        lowerTextArea.setColumns(20);
-        lowerTextArea.setRows(5);
-        jScrollPane5.setViewportView(lowerTextArea);
+        lowerLeftPanel.setBackground(new java.awt.Color(225, 225, 225));
 
-        javax.swing.GroupLayout lowerPanelLayout = new javax.swing.GroupLayout(lowerPanel);
-        lowerPanel.setLayout(lowerPanelLayout);
-        lowerPanelLayout.setHorizontalGroup(
-            lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lowerPanelLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+        lowerLeftScrollPanel.setBorder(null);
+
+        lowerLeftTextArea.setBackground(new java.awt.Color(225, 225, 225));
+        lowerLeftTextArea.setColumns(20);
+        lowerLeftTextArea.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        lowerLeftTextArea.setRows(5);
+        lowerLeftTextArea.setBorder(null);
+        lowerLeftScrollPanel.setViewportView(lowerLeftTextArea);
+
+        javax.swing.GroupLayout lowerLeftPanelLayout = new javax.swing.GroupLayout(lowerLeftPanel);
+        lowerLeftPanel.setLayout(lowerLeftPanelLayout);
+        lowerLeftPanelLayout.setHorizontalGroup(
+            lowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lowerLeftPanelLayout.createSequentialGroup()
+                .addGap(0, 66, Short.MAX_VALUE)
+                .addComponent(lowerLeftScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        lowerPanelLayout.setVerticalGroup(
-            lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lowerPanelLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+        lowerLeftPanelLayout.setVerticalGroup(
+            lowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lowerLeftPanelLayout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(lowerLeftScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
+
+        lowerPanel.add(lowerLeftPanel);
+
+        lowerRightPanel.setBackground(new java.awt.Color(225, 225, 225));
+
+        lowerRightScrollPanel.setBorder(null);
+
+        lowerRightTextArea.setBackground(new java.awt.Color(225, 225, 225));
+        lowerRightTextArea.setColumns(20);
+        lowerRightTextArea.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        lowerRightTextArea.setRows(5);
+        lowerRightTextArea.setBorder(null);
+        lowerRightScrollPanel.setViewportView(lowerRightTextArea);
+
+        javax.swing.GroupLayout lowerRightPanelLayout = new javax.swing.GroupLayout(lowerRightPanel);
+        lowerRightPanel.setLayout(lowerRightPanelLayout);
+        lowerRightPanelLayout.setHorizontalGroup(
+            lowerRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lowerRightPanelLayout.createSequentialGroup()
+                .addComponent(lowerRightScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+        lowerRightPanelLayout.setVerticalGroup(
+            lowerRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lowerRightPanelLayout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(lowerRightScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
+        );
+
+        lowerPanel.add(lowerRightPanel);
 
         getContentPane().add(lowerPanel);
 
@@ -456,9 +502,13 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JPanel lowerLeftPanel;
+    private javax.swing.JScrollPane lowerLeftScrollPanel;
+    private javax.swing.JTextArea lowerLeftTextArea;
     private javax.swing.JPanel lowerPanel;
-    private javax.swing.JTextArea lowerTextArea;
+    private javax.swing.JPanel lowerRightPanel;
+    private javax.swing.JScrollPane lowerRightScrollPanel;
+    private javax.swing.JTextArea lowerRightTextArea;
     private javax.swing.JLabel testLabel;
     private javax.swing.JTextArea testsTextArea;
     private javax.swing.JPanel topPanel;
