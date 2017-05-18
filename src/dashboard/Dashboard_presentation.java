@@ -25,11 +25,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         initComponents();
 
         try {
-            this.updateInstrumentPanel();
-            this.updateCartridgePanel();
-            this.updateTestsPanel();
-            this.updateErrorsPanel();
-
+            //  set up schedule to update the lower text area
             ScheduledExecutorService execService
                     = Executors.newScheduledThreadPool(1);
 
@@ -39,6 +35,22 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 this.updateLowerTextArea();
 
             }, 0, 3000L, TimeUnit.MILLISECONDS);
+            /////////////////////////////////////////////////
+
+            // set up schedule to update all upper text area panels
+            ScheduledExecutorService execService2
+                    = Executors.newScheduledThreadPool(1);
+
+            execService2.scheduleAtFixedRate(() -> {
+
+                //The repetitive task... 
+                this.updateInstrumentPanel();
+                this.updateCartridgePanel();
+                this.updateTestsPanel();
+                this.updateErrorsPanel();
+
+            }, 0, 30, TimeUnit.SECONDS);
+            ////////////////////////////////////////////////////////
 
         } catch (Exception e) {
             // handle the error
@@ -50,6 +62,30 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         }   //end finally
     }
 
+    static int loop = 0;
+
+    private void updateLowerTextArea() {
+
+        int selection = loop % 4;
+
+        switch (selection) {
+            case 0:
+                lowerTextArea.setText(loop + " 0: " + new java.util.Date());
+                break;
+            case 1:
+                lowerTextArea.setText(loop + " 1: " + new java.util.Date());
+                break;
+            case 2:
+                lowerTextArea.setText(loop + " 2: " + new java.util.Date());
+                break;
+            case 3:
+                lowerTextArea.setText(loop + " 3: " + new java.util.Date());
+                break;
+        }
+
+        loop++;
+    }
+
     private void updateInstrumentPanel() {
 
         try {
@@ -59,8 +95,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             arrayList = new ArrayList<String>();
             arrayList = queries.getAllInstrumentIDs();
 
-            instrumentTextArea.setText(instrumentTextArea.getText()
-                    + "Total Instruments: " + arrayList.size() + "\n");
+            instrumentTextArea.setText("Total Instruments: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
                 instrumentTextArea.setText(instrumentTextArea.getText() + "\t" + ID + "\n");
@@ -77,14 +112,6 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
     }
 
-    static int loop = 0;
-    private void updateLowerTextArea() {
-        loop++;
-
-        lowerTextArea.setText(loop + " at: " + new java.util.Date());
-
-    }
-
     private void updateCartridgePanel() {
 
         try {
@@ -94,8 +121,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             arrayList = new ArrayList<String>();
             arrayList = queries.getAllCartridgeIDs();
 
-            cartridgeTextArea.setText(cartridgeTextArea.getText()
-                    + "Total Cartridges: " + arrayList.size() + "\n");
+            cartridgeTextArea.setText("Total Cartridges: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
                 cartridgeTextArea.setText(cartridgeTextArea.getText() + "\t" + ID + "\n");
@@ -122,8 +148,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             arrayList = new ArrayList<String>();
             arrayList = queries.getAllTestInstanceIDs();
 
-            testsTextArea.setText(testsTextArea.getText()
-                    + "Total SensoDx Tests: " + arrayList.size() + "\n");
+            testsTextArea.setText("Total SensoDx Tests: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
                 testsTextArea.setText(testsTextArea.getText() + "\t" + ID + "\n");
@@ -149,8 +174,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             arrayList = new ArrayList<String>();
             arrayList = queries.getAllErrorIDs();
 
-            errorsTextArea.setText(errorsTextArea.getText()
-                    + "Total SensoDx Errors: " + arrayList.size() + "\n");
+            errorsTextArea.setText("Total SensoDx Errors: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
                 errorsTextArea.setText(errorsTextArea.getText() + "\t" + ID + "\n");
@@ -357,16 +381,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         lowerPanelLayout.setHorizontalGroup(
             lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lowerPanelLayout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         lowerPanelLayout.setVerticalGroup(
             lowerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lowerPanelLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(41, 41, 41)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         getContentPane().add(lowerPanel);
