@@ -9,6 +9,7 @@ import Cartridge_pkg.Cartridge;
 import Instrument_pkg.Instrument;
 import JDBCqueries_pkg.JDBCqueries;
 import TestInstance_pkg.TestInstance;
+import Errors_pkg.Errors;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
