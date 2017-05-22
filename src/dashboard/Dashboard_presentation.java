@@ -19,11 +19,23 @@ import java.util.concurrent.*;
  */
 public class Dashboard_presentation extends javax.swing.JFrame {
 
+    JDBCqueries queries;
+    ArrayList<String> arrayList;
+    Instrument instrument;
+
+    JDBCqueries queriesLower;
+    ArrayList<String> arrayListLower;
+
     /**
      * Creates new form Dashboard_presentation
      */
     public Dashboard_presentation() {
         initComponents();
+
+        arrayList = new ArrayList<String>();
+        queries = new JDBCqueries();
+        arrayListLower = new ArrayList<String>();
+        queriesLower = new JDBCqueries();
 
         try {
             //  set up schedule to update the lower text area
@@ -71,8 +83,30 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         switch (selection) {
             case 0:
-                lowerLeftTextArea.setText(loop + " 0: " + new java.util.Date());
-                break;
+                Instrument instrumentLower = new Instrument();
+                try {
+
+                    arrayListLower = queriesLower.getAllInstrumentIDs();
+
+                    int randomInstrIndex = (int) (arrayListLower.size() * Math.random());
+                    String randomInstrID = arrayListLower.get((int) randomInstrIndex);
+                    queriesLower.getInstrumentMfgInfo(randomInstrID, instrumentLower);
+                    queriesLower.getInstrumentDeploymentInfo(randomInstrID, instrumentLower);
+
+                    lowerLeftTextArea.setText(loop + " 0: " + new java.util.Date());
+                    lowerRightTextArea.setText(instrumentLower.toString());
+
+                } catch (Exception e) {
+                    // handle the error
+                    System.out.println("\n" + "updateLowerTextArea case 0, General Exception " + e.getMessage());
+                    System.exit(0);
+                } finally {
+//                    arrayList = null;
+//                    instrumentLower = null;
+                    break;
+
+                }   //end finally
+
             case 1:
                 lowerLeftTextArea.setText(loop + " 1: " + new java.util.Date());
                 break;
@@ -90,10 +124,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private void updateInstrumentPanel() {
 
         try {
-            JDBCqueries queries = new JDBCqueries();
-            ArrayList<String> arrayList;
+//            JDBCqueries queries = new JDBCqueries();
+//            ArrayList<String> arrayList;
 
-            arrayList = new ArrayList<String>();
+//            arrayList = new ArrayList<String>();
             arrayList = queries.getAllInstrumentIDs();
 
             instrumentTextArea.setText("Total Instruments: " + arrayList.size() + "\n");
@@ -107,7 +141,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             System.out.println("\n" + "updateInstrumentPanel General Exception " + e.getMessage());
             System.exit(0);
         } finally {
-            //finally block used to close resources
+//            arrayList = null;
 
         }   //end finally
 
@@ -116,10 +150,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private void updateCartridgePanel() {
 
         try {
-            JDBCqueries queries = new JDBCqueries();
-            ArrayList<String> arrayList;
+//            JDBCqueries queries = new JDBCqueries();
+//            ArrayList<String> arrayList;
 
-            arrayList = new ArrayList<String>();
+//            arrayList = new ArrayList<String>();
             arrayList = queries.getAllCartridgeIDs();
 
             cartridgeTextArea.setText("Total Cartridges: " + arrayList.size() + "\n");
@@ -133,7 +167,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             System.out.println("\n" + "updateCartridgePanel General Exception " + e.getMessage());
             System.exit(0);
         } finally {
-            //finally block used to close resources
+//            arrayList = null;
 
         }   //end finally
 
@@ -143,10 +177,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         try {
 
-            JDBCqueries queries = new JDBCqueries();
-            ArrayList<String> arrayList;
-
-            arrayList = new ArrayList<String>();
+//            JDBCqueries queries = new JDBCqueries();
+//            ArrayList<String> arrayList;
+//            arrayList = new ArrayList<String>();
             arrayList = queries.getAllTestInstanceIDs();
 
             testsTextArea.setText("Total SensoDx Tests: " + arrayList.size() + "\n");
@@ -160,7 +193,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             System.out.println("\n" + "updateTestsPanel General Exception " + e.getMessage());
             System.exit(0);
         } finally {
-            //finally block used to close resources
+//            arrayList = null;
 
         }   //end finally
 
@@ -169,10 +202,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     private void updateErrorsPanel() {
 
         try {
-            JDBCqueries queries = new JDBCqueries();
-            ArrayList<String> arrayList;
+//            JDBCqueries queries = new JDBCqueries();
+//            ArrayList<String> arrayList;
 
-            arrayList = new ArrayList<String>();
+//            arrayList = new ArrayList<String>();
             arrayList = queries.getAllErrorIDs();
 
             errorsTextArea.setText("Total SensoDx Errors: " + arrayList.size() + "\n");
@@ -186,7 +219,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             System.out.println("\n" + "updateErrorsPanel General Exception " + e.getMessage());
             System.exit(0);
         } finally {
-            //finally block used to close resources
+//            arrayList = null;
 
         }   //end finally
 
@@ -417,7 +450,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         lowerRightTextArea.setBackground(new java.awt.Color(225, 225, 225));
         lowerRightTextArea.setColumns(20);
-        lowerRightTextArea.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        lowerRightTextArea.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
         lowerRightTextArea.setRows(5);
         lowerRightTextArea.setBorder(null);
         lowerRightScrollPanel.setViewportView(lowerRightTextArea);
