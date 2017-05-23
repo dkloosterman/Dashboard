@@ -22,6 +22,8 @@ public class Dashboard_presentation extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard_presentation
      */
+    public static final String TESTFILE_SAMPLE = ".\\TestImage.tif";
+
     public Dashboard_presentation() {
         initComponents();
 
@@ -35,7 +37,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 //The repetitive task... 
                 this.updateLowerTextArea();
 
-            }, 0, 225L, TimeUnit.MILLISECONDS);
+            }, 0, 10000L, TimeUnit.MILLISECONDS);
             /////////////////////////////////////////////////
 
             // set up schedule to update all upper text area panels
@@ -50,7 +52,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 this.updateTestsPanel();
                 this.updateErrorsPanel();
 
-            }, 0, 1, TimeUnit.SECONDS);
+            }, 0, 30, TimeUnit.SECONDS);
             ////////////////////////////////////////////////////////
 
         } catch (Exception e) {
@@ -67,13 +69,14 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
     private void updateLowerTextArea() {
 
+        ArrayList arrayList = new ArrayList<String>();
+        JDBCqueries queries = new JDBCqueries();
         int selection = loop % 4;
 
         switch (selection) {
             case 0:
+                // display the info for a randomly selected Instrument
                 Instrument instrument = new Instrument();
-                ArrayList arrayList = new ArrayList<String>();
-                JDBCqueries queries = new JDBCqueries();
 
                 try {
 
@@ -101,39 +104,77 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 }   //end finally
 
             case 1:
+                // display the info for a randomly selected Cartridge
+                Cartridge cartridge = new Cartridge();
+
                 try {
+                    arrayList = queries.getAllCartridgeIDs();
+
+                    // randomly picj an instrument and display it's info
+                    int randomInstrIndex = (int) (arrayList.size() * Math.random());
+                    String randomCartID = (String) arrayList.get(randomInstrIndex);
+                    queries.getCartridgeMfgInfo(randomCartID, cartridge);
+
                     lowerLeftTextArea.setText(loop + " 1: " + new java.util.Date());
+                    lowerRightTextArea.setText(cartridge.toString());
                 } catch (Exception e) {
                     // handle the error
                     System.out.println("\n" + "updateLowerTextArea case 1, General Exception " + e.getMessage());
                     System.exit(0);
                 } finally {
-
+                    cartridge = null;
+                    arrayList = null;
+                    queries = null;
                     break;
 
                 }   //end finally
 
             case 2:
+                // display the info for a randomly selected Test Instance
+                TestInstance test = new TestInstance(TESTFILE_SAMPLE);
+
                 try {
+                    arrayList = queries.getAllTestInstanceIDs();
+
+                    // randomly pick an instrument and display it's info
+                    int randomInstrIndex = (int) (arrayList.size() * Math.random());
+                    String randomTestID = (String) arrayList.get(randomInstrIndex);
+                    queries.getTestInstanceInfo(randomTestID, test);
+
                     lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
+                    lowerRightTextArea.setText(test.toString());
                 } catch (Exception e) {
                     // handle the error
                     System.out.println("\n" + "updateLowerTextArea case 2, General Exception " + e.getMessage());
                     System.exit(0);
                 } finally {
-
+                    test = null;
+                    arrayList = null;
+                    queries = null;
                     break;
 
                 }   //end finallybreak;
             case 3:
+                Errors error = new Errors();
                 try {
-                    lowerLeftTextArea.setText(loop + " 3: " + new java.util.Date());
+
+                    arrayList = queries.getAllErrorIDs();
+
+                    // randomly pick an instrument and display it's info
+                    int randomInstrIndex = (int) (arrayList.size() * Math.random());
+                    String randomErrorID = (String) arrayList.get(randomInstrIndex);
+                    queries.getErrorInfo(randomErrorID, error);
+
+                    lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
+                    lowerRightTextArea.setText(error.toString());
                 } catch (Exception e) {
                     // handle the error
                     System.out.println("\n" + "updateLowerTextArea case 3, General Exception " + e.getMessage());
                     System.exit(0);
                 } finally {
-
+                    error = null;
+                    arrayList = null;
+                    queries = null;
                     break;
 
                 }   //end finallybreak;
@@ -199,6 +240,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         JDBCqueries queries = new JDBCqueries();
         ArrayList<String> arrayList = new ArrayList<String>();
+        TestInstance test = new TestInstance(null);
 
         try {
             arrayList = queries.getAllTestInstanceIDs();
@@ -206,7 +248,8 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             testsTextArea.setText("Total SensoDx Tests: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
-                testsTextArea.setText(testsTextArea.getText() + "\t" + ID + "\n");
+                queries.getTestInstanceInfo(ID, test);
+                testsTextArea.setText(testsTextArea.getText() + "   " + test.getClinical_test_timestamp() + "\t" + test.getInstrument_id() + "\n");
             }
 
         } catch (Exception e) {
@@ -216,6 +259,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         } finally {
             arrayList = null;
             queries = null;
+            test = null;
 
         }   //end finally
 
@@ -225,6 +269,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         JDBCqueries queries = new JDBCqueries();
         ArrayList<String> arrayList = new ArrayList<String>();
+        Errors error = new Errors();
 
         try {
             arrayList = queries.getAllErrorIDs();
@@ -232,7 +277,8 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             errorsTextArea.setText("Total SensoDx Errors: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
-                errorsTextArea.setText(errorsTextArea.getText() + "\t" + ID + "\n");
+                queries.getErrorInfo(ID, error);
+                errorsTextArea.setText(errorsTextArea.getText() + "   " + error.getError_timestamp() + "\t" + error.getError_code() + "\n");
             }
 
         } catch (Exception e) {
@@ -242,6 +288,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         } finally {
             arrayList = null;
             queries = null;
+            error = null;
 
         }   //end finally
 
