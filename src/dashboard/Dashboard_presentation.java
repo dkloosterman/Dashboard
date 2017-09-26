@@ -37,7 +37,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 //The repetitive task... 
                 this.updateLowerTextArea();
 
-            }, 0, 10000L, TimeUnit.MILLISECONDS);
+            }, 0, 3000L, TimeUnit.MILLISECONDS);
             /////////////////////////////////////////////////
 
             // set up schedule to update all upper text area panels
@@ -165,7 +165,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                     String randomErrorID = (String) arrayList.get(randomInstrIndex);
                     queries.getErrorInfo(randomErrorID, error);
 
-                    lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
+                    lowerLeftTextArea.setText(loop + " 3: " + new java.util.Date());
                     lowerRightTextArea.setText(error.toString());
                 } catch (Exception e) {
                     // handle the error
