@@ -11,6 +11,7 @@ import JDBCqueries_pkg.JDBCqueries;
 import TestInstance_pkg.TestInstance;
 import Errors_pkg.Errors;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -131,7 +132,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
             case 2:
                 // display the info for a randomly selected Test Instance
-                TestInstance test = new TestInstance(TESTFILE_SAMPLE);
+                List<String> imagePaths = new ArrayList<>();
+                imagePaths.add(TESTFILE_SAMPLE);
+                TestInstance test = new TestInstance(imagePaths);
 
                 try {
                     arrayList = queries.getAllTestInstanceIDs();
@@ -240,7 +243,10 @@ public class Dashboard_presentation extends javax.swing.JFrame {
 
         JDBCqueries queries = new JDBCqueries();
         ArrayList<String> arrayList = new ArrayList<String>();
-        TestInstance test = new TestInstance(null);
+        //
+        List<String> imagePaths = new ArrayList<>();
+        imagePaths.add(TESTFILE_SAMPLE);
+        TestInstance test = new TestInstance(imagePaths);
 
         try {
             arrayList = queries.getAllTestInstanceIDs();
