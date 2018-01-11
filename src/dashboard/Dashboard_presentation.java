@@ -135,9 +135,6 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             case 2:
                 // display the info for a randomly selected Test Instance
                 List<String> imagePaths = new ArrayList<>();
-//                imagePaths.add(TESTFILE_SAMPLE);
-//                List<String> idList = new ArrayList<>();
-//                idList = test.ImageIDstring2List();
                 TestInstance test = new TestInstance(imagePaths);
 
                 try {
