@@ -75,6 +75,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         int selection = loop % 4;
 
 //        selection = 2;  //testing testinstance
+
         switch (selection) {
             case 0:
                 // display the info for a randomly selected Instrument
