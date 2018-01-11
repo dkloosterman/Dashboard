@@ -38,7 +38,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 //The repetitive task... 
                 this.updateLowerTextArea();
 
-            }, 0, 9000L, TimeUnit.MILLISECONDS);
+            }, 0, 10000L, TimeUnit.MILLISECONDS);
             /////////////////////////////////////////////////
 
             // set up schedule to update all upper text area panels
@@ -134,7 +134,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             case 2:
                 // display the info for a randomly selected Test Instance
                 List<String> imagePaths = new ArrayList<>();
-                imagePaths.add(TESTFILE_SAMPLE);
+//                imagePaths.add(TESTFILE_SAMPLE);
+//                List<String> idList = new ArrayList<>();
+//                idList = test.ImageIDstring2List();
                 TestInstance test = new TestInstance(imagePaths);
 
                 try {
@@ -143,7 +145,8 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                     // randomly pick an instrument and display it's info
                     int randomInstrIndex = (int) (arrayList.size() * Math.random());
                     String randomTestID = (String) arrayList.get(randomInstrIndex);
-                    queries.getTestInstanceInfo(randomTestID, test);
+                    boolean deleteImages = true;
+                    queries.getTestInstanceInfo(randomTestID, test, deleteImages);
 
                     lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
                     lowerRightTextArea.setText(test.toString());
@@ -246,7 +249,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         ArrayList<String> arrayList = new ArrayList<String>();
         //
         List<String> imagePaths = new ArrayList<>();
-        imagePaths.add(TESTFILE_SAMPLE);
+//        imagePaths.add(TESTFILE_SAMPLE);
         TestInstance test = new TestInstance(imagePaths);
 
         try {
@@ -255,7 +258,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             testsTextArea.setText("Total SensoDx Tests: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
-                queries.getTestInstanceInfo(ID, test);
+                queries.getTestInstanceInfo_noImages(ID, test);
                 testsTextArea.setText(testsTextArea.getText() + "   " + test.getClinical_test_timestamp() + "\t" + test.getInstrument_id() + "\n");
             }
 
