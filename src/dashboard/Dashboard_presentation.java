@@ -38,7 +38,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                 //The repetitive task... 
                 this.updateLowerTextArea();
 
-            }, 0, 10000L, TimeUnit.MILLISECONDS);
+            }, 0, 5000L, TimeUnit.MILLISECONDS);
             /////////////////////////////////////////////////
 
             // set up schedule to update all upper text area panels
@@ -74,7 +74,7 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         JDBCqueries queries = new JDBCqueries();
         int selection = loop % 4;
 
-        selection = 2;  //testing testinstance
+//        selection = 2;  //testing testinstance
         switch (selection) {
             case 0:
                 // display the info for a randomly selected Instrument
