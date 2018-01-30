@@ -75,7 +75,6 @@ public class Dashboard_presentation extends javax.swing.JFrame {
         int selection = loop % 4;
 
 //        selection = 2;  //testing testinstance
-
         switch (selection) {
             case 0:
                 // display the info for a randomly selected Instrument
@@ -143,8 +142,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                     // randomly pick an instrument and display it's info
                     int randomInstrIndex = (int) (arrayList.size() * Math.random());
                     String randomTestID = (String) arrayList.get(randomInstrIndex);
-                    boolean deleteImages = true;
-                    queries.getTestInstanceInfo(randomTestID, test, deleteImages);
+                    boolean getTestImages = true;
+                    boolean deleteTestImages = true;
+                    queries.getTestInstanceInfo(randomTestID, test, getTestImages, deleteTestImages);
 
                     lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
                     lowerRightTextArea.setText(test.toString());
@@ -256,7 +256,9 @@ public class Dashboard_presentation extends javax.swing.JFrame {
             testsTextArea.setText("Total SensoDx Tests: " + arrayList.size() + "\n");
 
             for (String ID : arrayList) {
-                queries.getTestInstanceInfo_noImages(ID, test);
+                boolean getTestImages = false;
+                boolean deleteTestImages = true;
+                queries.getTestInstanceInfo(ID, test, getTestImages, deleteTestImages);
                 testsTextArea.setText(testsTextArea.getText() + "   " + test.getClinical_test_timestamp() + "\t" + test.getInstrument_id() + "\n");
             }
 
