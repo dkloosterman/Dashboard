@@ -140,14 +140,16 @@ public class Dashboard_presentation extends javax.swing.JFrame {
                     arrayList = queries.getAllTestInstanceIDs();
 
                     // randomly pick an instrument and display it's info
-                    int randomInstrIndex = (int) (arrayList.size() * Math.random());
-                    String randomTestID = (String) arrayList.get(randomInstrIndex);
-                    boolean getTestImages = true;
-                    boolean deleteTestImages = true;
-                    queries.getTestInstanceInfo(randomTestID, test, getTestImages, deleteTestImages);
+                    if (arrayList.size() > 0) {
+                        int randomInstrIndex = (int) (arrayList.size() * Math.random());
+                        String randomTestID = (String) arrayList.get(randomInstrIndex);
+                        boolean getTestImages = true;
+                        boolean deleteTestImages = true;
+                        queries.getTestInstanceInfo(randomTestID, test, getTestImages, deleteTestImages);
 
-                    lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
-                    lowerRightTextArea.setText(test.toString());
+                        lowerLeftTextArea.setText(loop + " 2: " + new java.util.Date());
+                        lowerRightTextArea.setText(test.toString());
+                    }
                 } catch (Exception e) {
                     // handle the error
                     System.out.println("\n" + "updateLowerTextArea case 2, General Exception " + e.getMessage());
